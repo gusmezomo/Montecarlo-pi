@@ -9,6 +9,8 @@
 #define TOTAL_PONTOS 100000000
 
 int main() {
+    double inicio, fim; //variaveis para medir o tempo de execucao
+
     int i;
     double rand_x, rand_y, distancia_origem, pi;
     int pontos_circulo = 0;
@@ -16,6 +18,8 @@ int main() {
     omp_set_num_threads(8);
 
     srand(time(NULL));
+
+    inicio = omp_get_wtime();
 
     #pragma omp parallel reduction(+:pontos_circulo) 
     {
@@ -26,10 +30,11 @@ int main() {
         for (i = 0; i < (TOTAL_PONTOS); i++) {
 
             //imprimir as 20 primeiras interaçoes
-            int thread_id = omp_get_thread_num();
-            if (i < 20) {
-                printf("Iteracao %d -> Thread %d\n", i, thread_id);
-            }
+            //removido para fazer testes de speedup
+            // int thread_id = omp_get_thread_num();
+            // if (i < 20) {
+            //     printf("Iteracao %d -> Thread %d\n", i, thread_id);
+            // }
 
             rand_x = (double)(rand_r(&seed) % (INTERVALO + 1)) / INTERVALO;
             rand_y = (double)(rand_r(&seed) % (INTERVALO + 1)) / INTERVALO;
@@ -46,5 +51,9 @@ int main() {
     printf("Estimativa de PI = %f\n", pi);
     printf("Numero de threads gerados: %d\n", omp_get_max_threads());
 
+    fim = omp_get_wtime();
+
+    printf("Tempo: %f\n", fim - inicio);
+    
     return 0;
 }
