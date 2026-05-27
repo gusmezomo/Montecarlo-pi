@@ -31,11 +31,11 @@ int main() {
         // cria uma seed única para cada thread usando o tempo atual e o id da thread
         unsigned int seed = time(NULL) + omp_get_thread_num();
 
-        #pragma omp for //schedule(static,1) //schedule(static,1) - PARA DISTRUBUIR AS THREADS ALTERNADAMENTE
+        #pragma omp for //schedule(static,1)- destrubiu as threads alternadamente, util para ver na impressão abaixo
         for (i = 0; i < (TOTAL_PONTOS); i++) {
 
             //imprimir as 20 primeiras interaçoes
-            //removido para fazer testes de speedup
+            //removido para não interferir nos resultados dos testes
             // int thread_id = omp_get_thread_num();
             // if (i < 20) {
             //     printf("Iteracao %d -> Thread %d\n", i, thread_id);
