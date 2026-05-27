@@ -1,4 +1,6 @@
 // gcc montecarlo-paralelo.c -o paralelo -fopenmp
+//DEFINIR AS THREADS NA EXECUCAO:
+//OMP_NUM_THREADS=4 ./paralelo
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,18 +17,19 @@ int main() {
     double rand_x, rand_y, distancia_origem, pi;
     int pontos_circulo = 0;
 
-    omp_set_num_threads(8);
-
-    srand(time(NULL));
-
     inicio = omp_get_wtime();
 
     #pragma omp parallel reduction(+:pontos_circulo) 
     {
-        // cria uma seed diferente para cada thread usando o tempo atual + id da thread
+        #pragma omp single
+        {
+            printf("Numero de threads gerados: %d\n", omp_get_num_threads());
+        }
+
+        // cria uma seed única para cada thread usando o tempo atual e o id da thread
         unsigned int seed = time(NULL) + omp_get_thread_num();
 
-        #pragma omp for schedule(static,1) //schedule(static,1) - PARA DISTRUBUIR AS THREADS ALTERNADAMENTE
+        #pragma omp for //schedule(static,1) //schedule(static,1) - PARA DISTRUBUIR AS THREADS ALTERNADAMENTE
         for (i = 0; i < (TOTAL_PONTOS); i++) {
 
             //imprimir as 20 primeiras interaçoes
@@ -49,7 +52,6 @@ int main() {
     pi = 4.0 * pontos_circulo / TOTAL_PONTOS;
 
     printf("Estimativa de PI = %f\n", pi);
-    printf("Numero de threads gerados: %d\n", omp_get_max_threads());
 
     fim = omp_get_wtime();
 
