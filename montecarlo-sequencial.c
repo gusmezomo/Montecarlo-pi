@@ -1,4 +1,7 @@
+//Gustavo Mezomo e Pedro Gustavo Thomas
+
 //gcc montecarlo-sequencial.c -o sequencial -fopenmp
+//./sequencial
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

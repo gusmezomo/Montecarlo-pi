@@ -1,3 +1,5 @@
+//Gustavo Mezomo e Pedro Gustavo Thomas
+
 // gcc montecarlo-paralelo.c -o paralelo -fopenmp
 //DEFINIR AS THREADS NA EXECUCAO:
 //OMP_NUM_THREADS=4 ./paralelo
