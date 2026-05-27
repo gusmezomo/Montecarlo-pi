@@ -9,7 +9,7 @@
 #include <omp.h> 
 
 #define INTERVALO 10000
-#define TOTAL_PONTOS 100000000
+#define TOTAL_PONTOS 500000000
 
 int main() {
     double inicio, fim; //variaveis para medir o tempo de execucao
