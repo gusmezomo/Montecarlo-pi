@@ -18,14 +18,15 @@ int main() {
     double rand_x, rand_y, distancia_origem, pi;
     int pontos_circulo = 0;
 
-    srand(time(NULL));
-
     inicio = omp_get_wtime();
+
+    // cria a seed inicial para o gerador de números aleatórios usando o tempo atual
+    unsigned int seed = time(NULL);
 
     for (i = 0; i < (TOTAL_PONTOS); i++) {
 
-        rand_x = (double)(rand() % (INTERVALO + 1)) / INTERVALO;
-        rand_y = (double)(rand() % (INTERVALO + 1)) / INTERVALO;
+        rand_x = (double)(rand_r(&seed) % (INTERVALO + 1)) / INTERVALO;
+        rand_y = (double)(rand_r(&seed) % (INTERVALO + 1)) / INTERVALO;
 
         distancia_origem = rand_x * rand_x + rand_y * rand_y;
 
