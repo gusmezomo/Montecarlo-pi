@@ -10,13 +10,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-// Biblioteca utilizada apenas para medir o tempo de execução.
+// incluido apenas para medir o tempo de execução.
 #include <omp.h>
 
-// Valor usado para gerar números aleatórios entre 0 e 1.
+// valor usado para gerar números aleatórios entre 0 e 1.
 #define INTERVALO 10000
 
-// Quantidade total de pontos que serão gerados na simulação.
+// quantidade total de pontos que serão gerados na simulação.
 #define TOTAL_PONTOS 1000000000
 
 int main() {
@@ -25,51 +25,46 @@ int main() {
 
     int i;
 
-    // Coordenadas do ponto gerado, valor da distância ao quadrado
+    // coordenadas do ponto gerado, valor da distância ao quadrado
     // até a origem e valor final estimado de PI.
     double rand_x, rand_y, distancia_quadrada, pi;
 
-    // Conta quantos pontos caíram dentro do círculo.
+    // conta quantos pontos caíram dentro do círculo.
     int pontos_circulo = 0;
 
-    // Marca o instante em que o programa começou.
+    // inicio, contar tempo de exec
     inicio = omp_get_wtime();
 
-    // Cria a seed inicial para o gerador de números aleatórios
+    // cria a seed inicial para o gerador de números aleatórios
     // usando o horário atual do sistema.
     unsigned int seed = time(NULL);
 
-    // Gera todos os pontos da simulação.
+    // gera os pontos da simulação.
     for (i = 0; i < TOTAL_PONTOS; i++) {
-
-        // Gera um valor aleatório para X entre 0 e 1.
+        // gera um valor aleatório para X entre 0 e 1.
         rand_x = (double)(rand_r(&seed) % (INTERVALO + 1)) / INTERVALO;
-
-        // Gera um valor aleatório para Y entre 0 e 1.
+        // gera um valor aleatório para Y entre 0 e 1.
         rand_y = (double)(rand_r(&seed) % (INTERVALO + 1)) / INTERVALO;
 
-        // Calcula a distância ao quadrado entre o ponto gerado
-        // e a origem (0,0). Não é necessário calcular a raiz
-        // quadrada para verificar se o ponto está dentro do círculo.
+        // calcula a distância ao quadrado entre o ponto gerado e a origem (0,0).
         distancia_quadrada = rand_x * rand_x + rand_y * rand_y;
 
-        // Se a distância ao quadrado for menor ou igual a 1,
-        // o ponto está dentro do círculo de raio 1.
+        // se a distância ao quadrado for menor ou igual a 1,
+        // o ponto está dentro do círculo.
         if (distancia_quadrada <= 1)
             pontos_circulo++;
     }
 
-    // Calcula a estimativa de PI utilizando a proporção
-    // entre os pontos dentro do círculo e o total de pontos.
+    // calcula a estimativa de PI
     pi = 4.0 * pontos_circulo / TOTAL_PONTOS;
 
-    // Exibe o valor estimado de PI.
+    // exibe o valor estimado de PI.
     printf("Estimativa de PI = %f\n", pi);
 
-    // Marca o instante em que o programa terminou.
+    // fim, contar tempo de exec
     fim = omp_get_wtime();
 
-    // Mostra o tempo total de execução em segundos.
+    // exibe tempo total de execução
     printf("Tempo: %f\n", fim - inicio);
 
     return 0;
