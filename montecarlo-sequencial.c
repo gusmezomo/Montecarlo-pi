@@ -55,6 +55,8 @@ int main() {
             pontos_circulo++;
     }
 
+    printf("Total de pontos gerados: %d\n", TOTAL_PONTOS);
+    
     // calcula a estimativa de PI
     pi = 4.0 * pontos_circulo / TOTAL_PONTOS;
 

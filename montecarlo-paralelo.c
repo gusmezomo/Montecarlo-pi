@@ -18,7 +18,6 @@
 #define TOTAL_PONTOS 1000000000
 
 int main() {
-
     // variáveis usadas para medir o tempo de execução.
     double inicio, fim;
 
@@ -65,13 +64,15 @@ int main() {
 
             // calcula a distância ao quadrado entre o ponto gerado e a origem (0,0).
             distancia_quadrada = rand_x * rand_x + rand_y * rand_y;
-            
+
             // se a distância ao quadrado for menor ou igual a 1,
             // o ponto está dentro do círculo.
             if (distancia_quadrada <= 1)
                 pontos_circulo++;
         }
     }
+    
+    printf("Total de pontos gerados: %d\n", TOTAL_PONTOS);
 
     //calcula a estimativa de PI
     pi = 4.0 * pontos_circulo / TOTAL_PONTOS;
